@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "lucida caligraphy";
+  src: url(./Lucida\ Calligraphy\ Font.ttf);
+}
+
+body {
+  min-height: 100vh;
+}
+
+body,
+h1 {
+  margin: 0;
+}
+
+div,
+p,
+span {
+  font-family: "lucida caligraphy";
+}
+

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Assignment 3</title>
+    <style>
+      .none-bullet-list {
+        list-style-type: none;
+      }
+
+      ul.none-bullet-list li > a:hover {
+        color: red;
+        background-color: pink;
+      }
+      #content > h2 + p {
+        font-weight: bold;
+        font-size: 12px;
+      }
+
+      .loginform {
+        border: 2px dashed rgb(20, 70, 60);
+      }
+
+      input[type="text"] {
+        background-color: yellow;
+      }
+
+      input[type="text"]:focus {
+        background-color: white;
+      }
+
+      .tabled-bordered {
+        display: inline-block;
+        padding: 5px;
+        border: 2px solid black;
+        margin: 0;
+      }
+
+      #aboutus {
+        color: yellow;
+      }
+
+      #aboutus {
+        color: red !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="header"
+      style="
+        text-align: center;
+        height: 60%;
+        background-color: red;
+        padding: 20px 0;
+      ">
+      <h1>This is a Page Header</h1>
+    </div>
+
+    <div class="container">
+      <span
+        id="links-bar"
+        style="width: 25%; float: left; background-color: gray">
+        <div class="loginform">
+          <form method="post">
+            <label for="username">Username</label
+            ><input id="username" type="text" /><br />
+            <label for="pass">Password</label
+            ><input id="pass" type="password" /><br />
+            <input id="remember" type="checkbox" />
+            <label for="remember">Remember me</label><br />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+        <span class="linksbar">
+          <h2>Site Menu</h2>
+          <ul class="none-bullet-list">
+            <li><a href="#">link 1</a></li>
+            <li><a href="#">link 2</a></li>
+            <li><a href="#">link 3</a></li>
+            <li><a href="#">link 4</a></li>
+            <li><a href="#">link 5</a></li>
+          </ul>
+        </span>
+      </span>
+      <span
+        id="content"
+        style="width: 75%; background-color: pink; float: left; height: 70%">
+        <h2>About Us</h2>
+        <p id="aboutus">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci
+          illo dolorem obcaecati numquam impedit ipsum ut eius mollitia quae
+          odio aperiam, commodi, praesentium odit vero ad doloremque nemo sit
+          vel.
+        </p>
+        <div class="titles">
+          <span class="tabled-bordered">title 1</span>
+          <span class="tabled-bordered">title 2</span>
+          <span class="tabled-bordered">title 3</span>
+        </div>
+      </span>
+    </div>
+  </body>
+</html>
