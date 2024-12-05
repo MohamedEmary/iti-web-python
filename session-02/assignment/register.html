@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+  </head>
+  <body>
+    <form method="post" action="thankyou.html">
+      <label for="first-name">First Name</label>
+      <input type="text" id="first-name" />
+      <br />
+
+      <label for="last-name">Last Name</label>
+      <input type="text" id="last-name" />
+      <br />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" />
+      <br />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" />
+      <br />
+
+      <label for="repeat-password">Repeat Password</label>
+      <input type="password" id="repeat-password" />
+      <br />
+
+      <label for="birth-date">Birth Date</label>
+      <input type="date" id="birth-date" />
+      <br />
+
+      <label for="user-picture">User Picture</label>
+      <input type="file" id="user-picture" accept="image/*" />
+      <br />
+
+      <fieldset>
+        <legend>Gender</legend>
+        <input type="radio" name="gender" value="male" id="male" />
+        <label for="male">Male</label><br />
+        <input type="radio" name="gender" value="female" id="female" />
+        <label for="female">Female</label>
+        <br />
+      </fieldset>
+
+      <br />
+
+      <select name="faculty" id="faculty">
+        <option value="bu">Benha Uni</option>
+        <option value="cu">Cairo Uni</option>
+        <option value="asu">Ain shams Uni</option>
+      </select>
+
+      <br />
+
+      <fieldset>
+        <legend>Hobbies</legend>
+
+        <input type="checkbox" id="swim" name="hobbies" value="swimming" />
+        <label for="swim"> Swimming </label>
+        <br />
+
+        <input type="checkbox" id="read" name="hobbies" value="reading" />
+        <label for="read"> Reading </label>
+        <br />
+
+        <input type="checkbox" id="prog" name="hobbies" value="programming" />
+        <label for="prog"> Programming </label>
+        <br />
+
+        <input type="checkbox" id="write" name="hobbies" value="writing" />
+        <label for="write"> Writing </label>
+      </fieldset>
+
+      <textarea
+        name="about"
+        id="about"
+        cols="100"
+        rows="10"
+        placeholder="About you"></textarea>
+      <br />
+
+      <input type="checkbox" name="agree" id="agree" />
+      <label for="agree">
+        I agreed to
+        <a
+          href="https://www.termsfeed.com/blog/sample-terms-and-conditions-template/"
+          >terms and condition</a
+        >
+      </label>
+      <br /><br />
+
+      <button type="submit">Submit</button>
+      <button type="reset">Reset</button>
+    </form>
+  </body>
+</html>
