@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .img-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .img-container img {
+        display: block;
+        width: 300px;
+      }
+
+      .result,
+      form {
+        margin: auto;
+      }
+
+      .result {
+        width: 55%;
+      }
+
+      .result table {
+        width: 100%;
+      }
+
+      form {
+        width: 30%;
+      }
+
+      form input {
+        margin: 5px 0;
+      }
+
+      table td,
+      table,
+      table th {
+        border: 1px solid black;
+        text-align: center;
+      }
+
+      fieldset {
+        margin-bottom: 10px;
+      }
+
+      p#warn {
+        background: #f9a2a2;
+        font-size: 20px;
+        text-align: center;
+      }
+
+      .check,
+      .edit,
+      .trash {
+        cursor: pointer;
+      }
+    </style>
+    <title>JS Assignment</title>
+  </head>
+  <body>
+    <div class="img-container">
+      <h1>Image Slider</h1>
+      <img src="" alt="Image Slider" id="slider" />
+      <div class="buttons">
+        <button id="prev">&lt;&lt;</button>
+        <button id="next">&gt;&gt;</button>
+        <button id="stop">stop</button>
+        <button id="play">play</button>
+        <button class="change-speed" id="6000">1x 6s</button>
+        <button class="change-speed" id="4000">2x 4s</button>
+        <button class="change-speed" id="2000">3x 2s</button>
+      </div>
+    </div>
+
+    <br /><br />
+    <hr />
+    <br /><br />
+
+    <form method="get" id="form">
+      <fieldset>
+        <legend>Title</legend>
+
+        <input type="radio" name="title" value="mister" id="mister" />
+        <label for="mister">Mister</label><br />
+        <input type="radio" name="title" value="miss" id="miss" />
+        <label for="miss">Miss</label>
+      </fieldset>
+
+      <label for="name">Name*:</label>
+      <input type="text" id="name" /><br />
+
+      <label for="email">Email*:</label>
+      <input type="email" id="email" /><br />
+
+      <label for="card-type">Card Type:</label>
+      <select name="card-type" id="card-type">
+        <option value="" selected disabled>Select card type</option>
+        <option value="visa">Visa</option>
+        <option value="mastercard">MasterCard</option>
+      </select>
+      <br />
+
+      <label for="save">Save data to use:</label>
+      <input type="checkbox" name="save" id="save" />
+      <br />
+
+      <button type="submit" id="submit">Add User</button>
+      <br />
+
+      <label for="search">Search:</label>
+      <input type="text" id="search" placeholder="Search by name..." /><br />
+    </form>
+
+    <div class="result">
+      <p id="warn"></p>
+      <p>List of Users:</p>
+      <table class="data-table">
+        <thead>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Card</th>
+          <th>Save Data</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </thead>
+        <tbody id="table-body"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6">No of Users <span id="users-no"></span></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <script src="lib.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
