@@ -1,0 +1,185 @@
+.container {
+  padding-left: 80px;
+  padding-right: 80px;
+}
+
+.blog-main .container {
+  display: flex;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  gap: 30px;
+}
+
+.blog-main .posts .post {
+  display: flex;
+}
+
+.blog-main .posts .content {
+  width: 70%;
+}
+.blog-main .posts .metadata {
+  width: 30%;
+}
+
+.blog-main .posts .metadata ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.blog-main .posts .metadata li {
+  color: gray;
+}
+
+.blog-main .posts .metadata i {
+  margin-right: 10px;
+}
+
+.blog-main .posts {
+  width: 70%;
+}
+
+.blog-main .post .avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 150px;
+
+  padding: 40px 0;
+  margin-bottom: 20px;
+  background-color: #f3f3f3;
+
+  color: #373b44;
+}
+
+.blog-main .post .text h4 {
+  margin-bottom: 20px;
+}
+
+.blog-main .post .text p {
+  margin-bottom: 20px;
+}
+
+.blog-main .post .text button {
+  border: none;
+  padding: 6px 20px;
+  border-radius: 5px;
+  background: #373b44;
+  color: white;
+  cursor: pointer;
+}
+
+.blog-main section.posts hr {
+  height: 2px;
+  margin: 20px 0;
+}
+
+.blog-main section.posts .metadata ul li {
+  cursor: pointer;
+}
+
+/* ============ASIDE============ */
+
+.blog-main aside {
+  width: 30%;
+  color: #373b44;
+}
+
+.blog-main aside hr,
+.blog-main .posts hr {
+  height: 1px;
+  border: none;
+  background-color: #e0e0e0;
+  margin: 20px 0;
+}
+
+.blog-main aside input,
+.blog-main ul {
+  margin: 0;
+  padding: 0;
+}
+
+.blog-main aside input {
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  outline: none;
+  padding: 0 10px;
+  width: calc(100% - 20px); /* subtract the padding */
+}
+
+.blog-main ul {
+  list-style-type: none;
+}
+
+.blog-main aside ul li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  transition: left 300ms ease;
+  padding: 10px 0;
+  border-bottom: 1px dashed gray;
+}
+
+.blog-main aside ul li:last-child {
+  border-bottom: none;
+}
+
+.blog-main aside ul li:hover {
+  left: 15px;
+}
+
+.blog-main aside ul li i {
+  color: #ff7461;
+}
+
+.blog-main aside h5 {
+  font-size: 17px;
+  margin-bottom: 10px;
+  font-weight: normal;
+}
+
+.blog-main aside p {
+  font-size: 14px;
+  margin-bottom: 40px;
+}
+/* ================MEDIA QUERY================ */
+
+@media (max-width: 1120px) {
+  .container {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  .blog-header-text {
+    width: 80%;
+    margin: auto;
+  }
+}
+
+@media (max-width: 960px) {
+  .container {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .blog-header-text {
+    width: 90%;
+  }
+
+  .blog-main .container {
+    flex-direction: column-reverse;
+  }
+  .blog-main .container > * {
+    width: 100%;
+  }
+
+  .blog-main .post .avatar {
+    font-size: 90px;
+  }
+
+  .blog-main .posts .metadata li {
+    font-size: 14px;
+  }
+}

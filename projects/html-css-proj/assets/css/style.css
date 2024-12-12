@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -16,6 +18,10 @@ p {
 a {
   color: white;
   text-decoration: none;
+}
+
+.decorated {
+  font-family: Lobster;
 }
 
 /* ================Navbar================ */
@@ -127,19 +133,13 @@ header .container > div img {
 
 /* ================Main================ */
 
-main {
+main.index {
   color: black;
   background: #f3f3f3;
   padding: 50px 0;
 }
 
-.main .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-main ul {
+main.index ul {
   padding: 0;
   display: flex;
   justify-content: space-between;
@@ -149,7 +149,7 @@ main ul {
   list-style-type: none;
 }
 
-main ul li {
+main.index ul li {
   display: flex;
   background: #ffffff;
   color: #373b44;
@@ -161,16 +161,16 @@ main ul li {
   width: calc(50% - 50px);
 }
 
-main ul li i {
+main.index ul li i {
   font-size: 90px;
 }
 
-main li div h4 {
+main.index li div h4 {
   margin-bottom: 10px;
   font-size: 18px;
 }
 
-main li div p {
+main.index li div p {
   font-size: 16px;
 }
 
@@ -178,7 +178,7 @@ main li div p {
   color: #373b44;
 }
 
-.about-nav {
+.after-nav {
   background-color: #ff7461;
   color: white;
   display: flex;
@@ -188,6 +188,25 @@ main li div p {
   font-size: 16px;
 }
 
+.gray-header h2 {
+  text-transform: uppercase;
+}
+
+.gray-header {
+  text-align: center;
+  background-color: #f3f3f3;
+  color: #373b44;
+  padding: 30px 0;
+}
+
+.gray-header h2 {
+  margin-bottom: 20px;
+}
+
+.gray-header-text {
+  width: 50%;
+  margin: auto;
+}
 /* ================Media Query================ */
 
 .container {
@@ -227,7 +246,7 @@ main li div p {
     width: 100%;
   }
 
-  main ul li {
+  main.index ul li {
     display: flex;
     background: #ffffff;
     color: #373b44;
@@ -288,7 +307,15 @@ main li div p {
     font-size: 18px;
   }
 
-  main ul li i {
+  main.index ul li i {
     font-size: 50px;
+  }
+
+  .gray-header h2 {
+    font-size: 20px;
+  }
+
+  .gray-header p {
+    font-size: 14px;
   }
 }
