@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        background: greenyellow;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      form {
+        background: white;
+        padding: 50px;
+        width: 20%;
+      }
+
+      input {
+        background: rgb(220, 220, 220);
+        width: calc(100% - 22px);
+        border: 1px solid gray;
+        outline: none;
+        margin: 10px 0;
+        padding: 10px 10px;
+      }
+
+      p {
+        margin: 0;
+        margin-top: 10px;
+        font-size: 13px;
+        font-family: sans-serif;
+      }
+
+      p a {
+        color: green;
+      }
+
+      button[type="submit"] {
+        background: green;
+        width: 100%;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+      }
+
+      #welcome-placeholder {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      form {
+        border-radius: 5px;
+      }
+    </style>
+    <title>Q 1</title>
+  </head>
+  <body>
+    <form id="form1">
+      <p id="welcome-placeholder"></p>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        placeholder="Username" /><br />
+
+      <input
+        type="password"
+        id="pass"
+        name="pass"
+        placeholder="Password" /><br />
+
+      <button type="submit" id="login">Login</button>
+
+      <p>Not registered? <a href="register.html">Register</a></p>
+    </form>
+    <script src="main.js"></script>
+  </body>
+</html>

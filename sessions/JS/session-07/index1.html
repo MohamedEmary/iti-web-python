@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Q 2</title>
+    <style>
+      body {
+        background: greenyellow;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      form {
+        background: white;
+        padding: 50px;
+        width: 20%;
+      }
+
+      input {
+        background: rgb(220, 220, 220);
+        width: calc(100% - 22px);
+        border: 1px solid gray;
+        outline: none;
+        margin: 10px 0;
+        padding: 10px 10px;
+      }
+
+      p {
+        margin: 0;
+        margin-top: 10px;
+        font-size: 13px;
+        font-family: sans-serif;
+      }
+
+      p a {
+        color: green;
+      }
+
+      button[type="submit"] {
+        background: green;
+        width: 100%;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+      }
+
+      #welcome-placeholder {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+    write a JavaScript program that will merge two arrays and remove 
+    duplicate items from an array. Ask the user through input type string to 
+    enter number like 1,6,5,9,1,2 Then Ask the user through input type string to 
+    enter number like 5,6,3,1,9 merge two arrays and remove duplicate items and display 
+    new array don’t use set 
+  -->
+    <form id="form1">
+      <p id="welcome-placeholder"></p>
+      <input
+        type="text"
+        id="nums1"
+        name="nums1"
+        placeholder="Numbers 1" /><br />
+
+      <input
+        type="text"
+        id="nums2"
+        name="nums2"
+        placeholder="Numbers 2" /><br />
+
+      <button type="submit" id="submit">submit</button>
+    </form>
+
+    <!-- 
+    Ex3;CreateTodo list app similar to this object 
+    [{name:’task1’,status,’done’},{...},.....]when user write task name and press 
+    add new task will be added to tasks list and array of tasksWhen user click the 
+    done mark in green the task status will be updated to done and change color When 
+    user click the delete button , the task should be deleted from list and array of tasks 
+  -->
+
+    <script src="main1.js"></script>
+  </body>
+</html>
