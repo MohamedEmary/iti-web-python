@@ -185,32 +185,37 @@ function addRow(data) {
     `;
 }
 
-function handleRemoveUsr(e) {
-  var itemId = parseInt(e.target.parentElement.id);
-
-  usrData = usrData.filter((item) => item.index !== itemId);
-  localStorage.setItem("usrData", JSON.stringify(usrData));
-
+function fillTableData(data = usrData) {
   tableBody.innerHTML = ``;
-  for (let i = 0; i < usrData.length; i++) {
+  for (let i = 0; i < data.length; i++) {
     tableBody.innerHTML += `
-    <tr id="${usrData[i].index}">
+    <tr id="${data[i].index}">
       <td>
-        ${usrData[i].title ? usrData[i].title : ""} 
-        ${usrData[i].name}
+        ${data[i].title ? data[i].title : ""} 
+        ${data[i].name}
       </td>
-      <td>${usrData[i].email}</td>
+      <td>${data[i].email}</td>
       <td>
-        ${usrData[i].cardType ? usrData[i].cardType : "No Card"}
+        ${data[i].cardType ? data[i].cardType : "No Card"}
       </td>
       <td>
-        ${usrData[i].saveData ? "✅" : "🟩"}
+        ${data[i].saveData ? "✅" : "🟩"}
       </td>
       <td class='edit'>📝</td>
       <td class='trash'>🗑️</td>
     </tr>
   `;
   }
+}
+
+function handleRemoveUsr(e) {
+  var itemId = parseInt(e.target.parentElement.id);
+
+  usrData = usrData.filter((item) => item.index !== itemId);
+  localStorage.setItem("usrData", JSON.stringify(usrData));
+
+  fillTableData();
+
   addDeleteEvent();
   addEditEvent();
   usrNo.textContent = usrData.length;
@@ -235,3 +240,12 @@ function addDeleteEvent() {
     });
   });
 }
+
+search.addEventListener("input", (e) => {
+  var lol = "string";
+  var filteredItems = usrData.filter((item) =>
+    item.name.includes(e.target.value.trim())
+  );
+
+  fillTableData(filteredItems)
+});
