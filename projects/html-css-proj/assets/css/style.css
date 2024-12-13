@@ -33,6 +33,10 @@ nav h1 {
 nav {
   background: #373b44;
   color: white;
+  position: sticky;
+  width: 100%;
+  z-index: 10;
+  top: 0;
 }
 
 nav ul {
@@ -78,7 +82,7 @@ nav img {
 }
 
 nav img,
-nav ul li,
+nav ul li a,
 nav h1 {
   cursor: pointer;
 }
@@ -129,6 +133,24 @@ header .header-right {
 header .container > div img {
   display: block;
   width: 500px;
+}
+
+.social-icons {
+  height: 25px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  background: #2c2e35;
+  color: white;
+}
+
+.social-icons .container {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icons .container i {
+  cursor: pointer;
 }
 
 /* ================Main================ */
@@ -207,6 +229,7 @@ main.index li div p {
   width: 50%;
   margin: auto;
 }
+
 /* ================Media Query================ */
 
 .container {
@@ -283,7 +306,7 @@ main.index li div p {
   nav ul {
     display: none;
     position: fixed;
-    top: 51px;
+    top: 76px;
     left: 0;
     right: 0;
     font-size: 17px;
