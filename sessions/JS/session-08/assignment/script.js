@@ -75,7 +75,6 @@ console.log(getCookie("fname")); // fname = mohamed
 
 // ================ Q3 ================
 
-// var form = document.getElementById("form");
 var submit = document.getElementById("submit");
 var editUsr;
 var deleteUsr;
@@ -242,10 +241,9 @@ function addDeleteEvent() {
 }
 
 search.addEventListener("input", (e) => {
-  var lol = "string";
   var filteredItems = usrData.filter((item) =>
     item.name.includes(e.target.value.trim())
   );
 
-  fillTableData(filteredItems)
+  fillTableData(filteredItems);
 });
