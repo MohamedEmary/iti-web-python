@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <meter value="20" min="0" max="50"></meter>
+    <br />
+    <meter value="5" low="10" high="50" min="0" max="50"></meter>
+    <br />
+    <meter value="45" low="10" high="40" min="0" max="50"></meter>
+    <br />
+    <progress value="20" max="100"></progress>
+    <br /><br /><br />
+
+    <form action="">
+      <input type="color" />
+      <br /><br />
+      <input type="email" placeholder="Email" />
+      <br /><br />
+      <input type="range" min="0" max="100" step="1" value="20" />
+      <br /><br />
+      <input type="submit" />
+      <br /><br />
+      <input type="file" />
+      <br /><br />
+      <input type="date" />
+      <br /><br />
+      <input
+        type="text"
+        required
+        placeholder="Enter Your Name"
+        pattern="[A-Z][a-z]{3}" />
+      <br /><br />
+      <!-- Will submit the value but not editable -->
+      <input type="text" value="hi" readonly />
+      <br /><br />
+      <!-- Will not submit the value -->
+      <input type="text" value="hi" disabled />
+    </form>
+
+    <p class="address">
+      k28 cairo-alx desert road, 6th of october, giza, egypt, 12566
+    </p>
+
+    <!-- Item Scope for SEO -->
+    <div itemscope itemtype="http://schema.org/Organization">
+      <span
+        itemprop="address"
+        itemscope
+        itemtype="https://schema.urg/PostalAddress">
+        <span itemprop="streetAddress">k28 cairo-alx desert road,</span>
+        <span itemprop="addressLocality">6th of october,</span>
+        <span itemprop="addressRegion">giza,</span>
+        <span itemprop="addressCountry">egypt,</span>
+        <span itemprop="postalCode">12566</span>
+      </span>
+    </div>
+
+    <!-- Semantic Elements -->
+    <!-- Custom Attributes -->
+    <!-- Audio and Video tags -->
+
+    <!-- <audio
+      controls
+      src="./564001__migfus20__jazz-background-music-loop.mp3"></audio> -->
+
+    <audio
+      controls
+      src="./564001__migfus20__jazz-background-music-loop.mp3"></audio>
+
+    <br /><br />
+
+    <video width="300" controls src="./Screencast_20241028_010351.mp4"></video>
+
+    <!-- video controls tasks -->
+    <!-- GEOLocation Library -->
+
+    <!-- <input type="button" value="Get position" onclick="displayPosition()" /> -->
+
+    <p id="demo"></p>
+    <script>
+      setInterval(() => {
+        document.getElementsByTagName("progress")[0].value += 2;
+      }, 1000);
+
+      document.getElementsByTagName("audio")[0].muted = true;
+      document.getElementsByTagName("audio")[0].ontimeupdate;
+      document.getElementsByTagName("audio")[0].playbackRate = 4;
+      document.getElementsByTagName("audio")[0].play();
+      document.getElementsByTagName("audio")[0].onloadeddata;
+
+      // function displayPosition() {
+      //   navigator.geolocation.getCurrentPosition(successfn);
+      // }
+
+      // function successfn(pos) {
+      //   console.log(pos.coords.latitude, pos.coords.longitude);
+      // }
+
+      const x = document.getElementById("demo");
+
+      function getLocation() {
+        console.log(navigator.geolocation);
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+      }
+
+      function showPosition(position) {
+        x.innerHTML =
+          "Latitude: " +
+          position.coords.latitude +
+          "<br>Longitude: " +
+          position.coords.longitude +
+          `<br><a href="https://www.google.com/maps/@${position.coords.latitude},${position.coords.longitude},17z">View on Map</a>`;
+      }
+      getLocation();
+    </script>
+  </body>
+</html>

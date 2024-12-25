@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .container {
+        margin: auto;
+        width: fit-content;
+        text-align: center;
+      }
+    </style>
+
+    <title>Controls</title>
+  </head>
+  <body>
+    <div class="container">
+      <video width="500" src="./video.mp4" controls></video>
+      <br />
+      <button id="play">Play</button>
+      <button id="stop">Stop</button>
+      <br />
+      <input
+        type="range"
+        id="speed"
+        min="0"
+        step="1"
+        max="15"
+        value="1" /><br />
+      <input
+        type="range"
+        id="volume"
+        min="0"
+        step="0.1"
+        max="1"
+        value="0.5" /><button id="mute">Mute</button>
+      <br />
+      <button id="DoubleStepBack">&lt;&lt;</button>
+      <button id="stepBack">&lt;</button>
+      <button id="stepForward">&gt;</button>
+      <button id="DoubleStepForward">&gt;&gt;</button>
+      <br />
+      <input type="range" id="slider" min="0" value="0" />
+    </div>
+    <script>
+      const video = document.querySelector("video");
+      document.querySelector("#play").addEventListener("click", () => {
+        video.play();
+      });
+
+      document.querySelector("#stop").addEventListener("click", () => {
+        video.pause();
+      });
+
+      document.querySelector("#mute").addEventListener("click", () => {
+        video.muted = !video.muted;
+      });
+
+      document.querySelector("#speed").addEventListener("input", (e) => {
+        video.playbackRate = e.target.value;
+      });
+
+      document.querySelector("#volume").addEventListener("input", (e) => {
+        video.volume = e.target.value;
+      });
+
+      document
+        .querySelector("#DoubleStepBack")
+        .addEventListener("click", () => {
+          video.currentTime -= 10;
+        });
+
+      document
+        .querySelector("#DoubleStepForward")
+        .addEventListener("click", () => {
+          video.currentTime += 10;
+        });
+
+      document.querySelector("#stepBack").addEventListener("click", () => {
+        video.currentTime -= 5;
+      });
+
+      document.querySelector("#stepForward").addEventListener("click", () => {
+        video.currentTime += 5;
+      });
+
+      let vidDuration;
+      const slider = document.querySelector("#slider");
+
+      video.addEventListener("loadedmetadata", () => {
+        vidDuration = Math.floor(video.duration);
+        slider.setAttribute("max", vidDuration);
+        slider.setAttribute("step", vidDuration / 100);
+
+        video.addEventListener("timeupdate", () => {
+          slider.value = Math.floor(video.currentTime);
+        });
+
+        slider.addEventListener("input", (e) => {
+          video.currentTime = e.target.value;
+        });
+      });
+    </script>
+  </body>
+</html>

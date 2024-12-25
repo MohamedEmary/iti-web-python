@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color</title>
+  </head>
+  <body>
+    <label for="red">Red:</label>
+    <input id="red" type="range" min="0" max="255" name="red" value="0" /><br />
+
+    <label for="red">Green:</label>
+    <input
+      id="green"
+      type="range"
+      min="0"
+      max="255"
+      name="green"
+      value="0" /><br />
+
+    <label for="red">Blue:</label>
+    <input
+      id="blue"
+      type="range"
+      min="0"
+      max="255"
+      name="blue"
+      value="0" /><br />
+
+    <h2>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, rerum!
+    </h2>
+
+    <script>
+      const inputs = document.querySelectorAll("input");
+
+      inputs.forEach((element) => {
+        element.addEventListener("input", () => {
+          red = document.getElementById("red").value;
+          green = document.getElementById("green").value;
+          blue = document.getElementById("blue").value;
+          document.querySelector(
+            "h2"
+          ).style.color = `rgb(${red}, ${green}, ${blue})`;
+        });
+      });
+    </script>
+  </body>
+</html>
