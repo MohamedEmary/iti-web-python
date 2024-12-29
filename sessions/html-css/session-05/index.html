@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <math display="block">
+      <mrow>
+        <mi>y</mi>
+        <mo>=</mo>
+        <mfrac>
+          <mrow>
+            <msqrt>
+              <msup><mi>x</mi><mn>2</mn></msup>
+              <mo>+</mo>
+              <mn>4</mn>
+            </msqrt>
+          </mrow>
+          <mrow>
+            <mn>2</mn>
+            <mi>π</mi>
+          </mrow>
+        </mfrac>
+      </mrow>
+    </math>
+
+    <br />
+
+    <math display="block">
+      <mrow>
+        <msub>
+          <mo movablelimits="false">∮</mo>
+          <mi>C</mi>
+        </msub>
+        <mover>
+          <mi>B</mi>
+          <mo
+            stretchy="false"
+            style="transform: scale(0.75) translate(10%, 30%)"
+            >→</mo
+          >
+        </mover>
+        <mo>∘</mo>
+        <mrow>
+          <mi mathvariant="normal">d</mi>
+        </mrow>
+        <mover>
+          <mi>l</mi>
+          <mo
+            stretchy="false"
+            style="transform: scale(0.75) translate(10%, 30%)"
+            >→</mo
+          >
+        </mover>
+        <mo>=</mo>
+        <msub>
+          <mi>μ</mi>
+          <mn>0</mn>
+        </msub>
+        <mrow>
+          <mo fence="true" form="prefix">(</mo>
+          <msub>
+            <mi>I</mi>
+            <mtext>enc</mtext>
+          </msub>
+          <mo>+</mo>
+          <msub>
+            <mi>ε</mi>
+            <mn>0</mn>
+          </msub>
+          <mfrac>
+            <mrow>
+              <mi mathvariant="normal">d</mi>
+            </mrow>
+            <mrow>
+              <mrow>
+                <mi mathvariant="normal">d</mi>
+              </mrow>
+              <mi>t</mi>
+            </mrow>
+          </mfrac>
+          <msub>
+            <mo movablelimits="false">∫</mo>
+            <mi>S</mi>
+          </msub>
+          <mrow>
+            <mover>
+              <mi>E</mi>
+              <mo
+                stretchy="false"
+                style="transform: scale(0.75) translate(10%, 30%)"
+                >→</mo
+              >
+            </mover>
+            <mo>∘</mo>
+            <mover>
+              <mi>n</mi>
+              <mo
+                stretchy="false"
+                class="tml-xshift"
+                style="math-style: normal; math-depth: 0"
+                >^</mo
+              >
+            </mover>
+          </mrow>
+          <mspace width="0.2778em"></mspace>
+          <mrow>
+            <mi mathvariant="normal">d</mi>
+          </mrow>
+          <mi>a</mi>
+          <mo fence="true" form="postfix">)</mo>
+        </mrow>
+      </mrow>
+    </math>
+
+    <svg viewBox="0 -1 30 11" xmlns="http://www.w3.org/2000/svg">
+      <!--
+      An open shape with the last point of
+      the path different to the first one
+      -->
+      <path stroke="red" d="M 5,1   l -4,8 8,0" />
+
+      <!--
+      An open shape with the last point of
+      the path matching the first one
+      -->
+      <path stroke="red" d="M 15,1   l -4,8 8,0 -4,-8" />
+
+      <!--
+      A closed shape with the last point of
+      the path different to the first one
+      -->
+      <path stroke="red" d="M 25,1   l -4,8 8,0  z" />
+    </svg>
+
+    <script>
+      let res = ((a, b) => a + b)(1, 2);
+      console.log(res);
+      console.log(navigator.userAgent);
+      console.log(navigator.appCodeName);
+      console.log(navigator.appName);
+      console.log(navigator.product);
+      console.log(navigator.vendor);
+      console.log(navigator.userAgentData);
+      console.log(navigator.userAgentData.brands[0].brand);
+      console.log(navigator);
+      // if (/chrome/.i) {}
+
+      // there is something in promises that runs in sync
+      // which is then and catch
+
+      // New Worker API to create ur own thread
+    </script>
+  </body>
+</html>

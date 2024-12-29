@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      div {
+        width: fit-content;
+        margin: auto;
+      }
+    </style>
+    <title>Display Data</title>
+  </head>
+  <body>
+    <div>
+      <h1>Your Data:</h1>
+      <h2 id="name">Your name is: <span></span></h2>
+      <h2 id="age">Your age is: <span></span></h2>
+      <h2 id="gender">Your gender is: <span></span></h2>
+      <h2 id="color">Your favorite color is: <span></span></h2>
+    </div>
+
+    <script>
+      const usrData = JSON.parse(localStorage.getItem("usrData"));
+      document.querySelector("#name span").textContent = usrData.name;
+      document.querySelector("#age span").textContent = usrData.age;
+      document.querySelector("#gender span").textContent = usrData.gender;
+      document.querySelector("#color span").textContent = usrData.favColor;
+    </script>
+  </body>
+</html>

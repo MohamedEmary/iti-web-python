@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 1</title>
+    <style>
+      img {
+        width: 200px;
+      }
+      h2 {
+        color: red;
+        font-size: 20;
+      }
+    </style>
+  </head>
+  <body>
+    <h2></h2>
+    <form>
+      <label for="name">Enter Your Name:</label>
+      <input type="text" id="name" name="name" />
+      <br />
+      <br />
+
+      <label for="age">Enter Your Age:</label>
+      <input type="text" id="age" name="age" />
+      <br />
+
+      <p>Select Your Gender:</p>
+      <label for="male">
+        <img src="./image.png" alt="male" />
+      </label>
+      <input type="radio" id="male" name="gender" value="male" />
+      <label for="female">
+        <img src="./image copy.png" alt="female" />
+      </label>
+      <input type="radio" id="female" name="gender" value="female" />
+      <br />
+
+      <label for="color"> Select your favorite color: </label>
+      <select name="color" id="color">
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+        <option value="green">Green</option>
+        <option value="yellow">Yellow</option>
+      </select>
+      <br />
+
+      <input type="submit" value="Register" />
+    </form>
+
+    <script>
+      document
+        .querySelector('input[type="submit"]')
+        .addEventListener("click", (e) => {
+          e.preventDefault(); // its better to use submit event on form element
+          // and use action attribute to redirect to another page
+          const usrData = {};
+
+          let name = document.querySelector("#name");
+          let age = document.querySelector("#age");
+          let gender = document.querySelector('input[type="radio"]:checked');
+          let favColor = document.querySelector("select");
+
+          if (
+            name.value === "" ||
+            age.value === "" ||
+            gender.value === "" ||
+            favColor.value === ""
+          ) {
+            document.querySelector("h2").textContent = "Please fill all fields";
+          } else {
+            document.querySelector("h2").textContent = "";
+            usrData.name = name.value;
+            usrData.age = age.value;
+            usrData.gender = gender.value;
+            usrData.favColor = favColor.value;
+
+            name.value = "";
+            age.value = "";
+            favColor.value = "";
+            gender.value = "";
+
+            localStorage.setItem("usrData", JSON.stringify(usrData));
+            window.location.href = "displayUsrData.html";
+          }
+        });
+    </script>
+  </body>
+</html>
