@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Line Animation</title>
+    <style>
+      canvas {
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+    <script>
+      const canvas = /** @type {HTMLCanvasElement} */ (
+        document.getElementById("myCanvas")
+      );
+      const ctx = canvas.getContext("2d");
+
+      let x = 0;
+      let y = 0;
+
+      const canvasWidth = canvas.width;
+      const canvasHeight = canvas.height;
+
+      const steps = 100;
+      const stepSizeX = canvasWidth / steps;
+      const stepSizeY = canvasHeight / steps;
+
+      let currentX = 0;
+      let currentY = 0;
+
+      function animate() {
+        ctx.beginPath();
+        ctx.moveTo(currentX, currentY);
+        ctx.lineTo(currentX + stepSizeX, currentY + stepSizeY);
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        currentX += stepSizeX;
+        currentY += stepSizeY;
+
+        if (currentX <= canvasWidth && currentY <= canvasHeight) {
+          setTimeout(animate, 20);
+        } else {
+          alert("animation end");
+        }
+      }
+
+      animate();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.header .container {
+  background: rgb(113, 182, 22);
+  border-radius: 15px;
+}

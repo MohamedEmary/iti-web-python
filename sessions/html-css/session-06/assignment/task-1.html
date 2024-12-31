@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* input {
+        outline: none;
+      } */
+
+      input:invalid {
+        outline: 2px solid red;
+      }
+
+      input:valid {
+        outline: 2px solid green;
+      }
+      input:valid+p{
+        
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <label for="username">Username:</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        placeholder="Username"
+        pattern="[a-zA-Z]+"
+        required />
+      <br />
+      <p style="color: gray; font-size: 14px">
+        The required user name may only be a series of alphabetical characters.
+      </p>
+
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Email"
+        pattern="[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,}"
+        required />
+      <br />
+      <p style="color: gray; font-size: 14px">
+        The required email must be a valid email address may not contain any
+        special characters other than the "@" sign.
+      </p>
+
+      <button type="submit">Change</button>
+    </form>
+  </body>
+</html>

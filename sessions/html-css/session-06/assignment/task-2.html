@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      button {
+        border: none;
+        background-color: purple;
+        padding: 10px 20px;
+        font-size: 20px;
+        border-radius: 8px;
+        color: white;
+      }
+
+      button:hover + div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: gold;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <button>Hover to Blink</button>
+    <div></div>
+  </body>
+</html>
