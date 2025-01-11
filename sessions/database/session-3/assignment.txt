@@ -1,0 +1,30 @@
+1 - Display Departments Data Which Contains More Than 200 Employees
+
+2 - Display Employee Data Which Change Salary More Than 3 Times
+
+3 - Display Maximum Salary On Each Department
+
+4 - Display Departments Data Which Total Salary of employees on This Department is more than 1000000
+
+5 - Display Top 5 different Salary On Department "Finance
+
+6- Display Courses Which No Learning for Any Student.
+
+7- Display Total Grade For All Courses With Student Name.
+
+8- Display Departments Which Average Salary For All Employees is less than 75000.
+
+9- Display Students Which Learn More Than 300 Hours.
+
+10- Using “Union” & “Multiple Fuction” Display 2 Maximum different salary.
+
+11- Display Employee Full Name With Department Name Which is Working On It
+
+12- Display Departments & Employees Data which have Employees or not
+
+13- Display Student Name and Course Name and Grade for him
+
+14 – Display Employee Name And Data of Supervisor which name of Employee start with B
+
+15- Display Employee Data Which has history in department and salary
+
