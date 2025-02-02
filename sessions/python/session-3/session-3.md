@@ -1,0 +1,1 @@
+Program to print the reciprocal of even numbers only, handle zero as `ZeroException` and Throw the Exception and Odd as `ValueError`.
