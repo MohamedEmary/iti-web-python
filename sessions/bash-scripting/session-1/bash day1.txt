@@ -1,0 +1,104 @@
+touch test  
+alber
+andrew
+ahmed
+reem
+rowan
+aya
+arege
+____________________________________
+sed '/ahmed/p' test
+alber
+andrew
+ahmed
+ahmed
+reem
+rowan
+aya
+arege
+____________________________________
+sed -n '/ahmed/p' test
+ahmed 
+______________________________________
+#range
+sed -n '/ahmed/,/rowan/p' test
+ahmed
+reem
+rowan
+____________________________________
+sed -n -e '/ahmed/p' -e '/aya/p' test
+ahmed 
+aya
+_____________________________________
+root@HP:/home/alber/script# sed -n '2,/aya/p' test 
+andrew
+ahmed
+reem
+rowan
+aya
+root@HP:/home/alber/script# sed -n '2,6p' test 
+andrew
+ahmed
+reem
+rowan
+aya
+__________________________DELETE__________________________
+root@HP:/home/alber/script# sed '3d' test 
+alber
+andrew
+reem
+rowan
+aya
+arege
+
+root@HP:/home/alber/script# sed -n '3d' test 
+root@HP:/home/alber/script# 
+____________________________________
+ sed  '$d' test
+remove last line
+_____________________________________
+root@HP:/home/alber/script# sed '3,$d' test 
+alber
+andrew
+root@HP:/home/alber/script# sed '3,/rowan/d' test 
+alber
+andrew
+aya
+arege
+__________________________for change__________________________
+root@HP:/home/alber/script# sed 's/alber/karam/g' test 
+karam
+andrew
+ahmed
+reem
+rowan
+aya
+arege
+root@HP:/home/alber/script# sed -n 's/alber/karam/g' test 
+root@HP:/home/alber/script# 
+root@HP:/home/alber/script# sed -n 's/alber/karam/gp' test 
+karam
+
+__________________________AWK__________________________
+
+awk  '{print $1}' /etc/passwd
+
+awk -F: '{print $1}' /etc/passwd
+
+awk -F: '{print $1,$5}' /etc/passwd
+
+awk -F: '{print $1,":",$5}' /etc/passwd
+
+awk -F: '{print "logname:",$1,"comment:",$5}' /etc/passwd
+
+awk '{print $0}' /etc/passwd
+
+awk '{print NR,$0}' /etc/passwd
+
+awk -F: '{print NF,$0}' /etc/passwd
+
+awk '{print NF,$0}' /etc/passwd
+
+awk 'BEGIN {FS=":" ; print "Logname" ,"\t\t", "comment"} {print $1,"\t\t\t",$5}' /etc/passwd
+
+awk 'BEGIN {FS=":" ; print "Logname" ,"\t\t", "comment"} {print $1,"\t\t\t",$5} END{print "Total number of users is:" ,NR ; print "this report prepared by: Alber Karam"}' /etc/passwd
