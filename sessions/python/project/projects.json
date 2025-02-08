@@ -1,0 +1,20 @@
+[
+  {
+    "id": "22c7241b-b6c8-4594-af88-4f7123ee0ce2",
+    "title": "Mohamed",
+    "details": "Mohamed Project Description",
+    "total_target": 20000.0,
+    "start_date": "2022-1-1",
+    "end_date": "2024-2-2",
+    "owner_email": "mohamed@gmail.com"
+  },
+  {
+    "id": "4898f7e7-cd62-4f82-a52e-185008895d02",
+    "title": "Ahmed Proj",
+    "details": "Ahmed Project Description",
+    "total_target": 30000.0,
+    "start_date": "2001-1-1",
+    "end_date": "2024-1-1",
+    "owner_email": "ahmed@gmail.com"
+  }
+]

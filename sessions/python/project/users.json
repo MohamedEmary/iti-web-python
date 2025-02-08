@@ -1,0 +1,16 @@
+[
+  {
+    "first_name": "Mohamed",
+    "last_name": "Emary",
+    "email": "mohamed@gmail.com",
+    "password_hash": "575e500ddb529cc2e5b14dd6e7feb389a8b6e0d7c2b162b6bf31831c64d23592",
+    "mobile_phone": "01127478268"
+  },
+  {
+    "first_name": "Ahmed",
+    "last_name": "Emary",
+    "email": "ahmed@gmail.com",
+    "password_hash": "9af2921d3fd57fe886c9022d1fcc055d53a79e4032fa6137e397583884e1a5de",
+    "mobile_phone": "01127478268"
+  }
+]
