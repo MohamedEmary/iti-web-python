@@ -45,6 +45,19 @@ GROUP BY
   dept_no;
 
 
+-- IF WE WANT TO DISPLAY DEPARTMENT NAME
+SELECT
+  dept_name,
+  MAX(e.salary)
+FROM
+  departments d,
+  employees e
+WHERE
+  d.dept_no = e.dept_no
+GROUP BY
+  dept_name;
+
+
 -- 4 - Display Departments Data Which Total Salary of employees on This Department is more than 1000000
 SELECT
   dept_no,
@@ -93,64 +106,66 @@ WHERE
 
 -- 7 - Display Total Grade For All Courses With Student Name.
 SELECT
-  student_no,
-  SUM(grade)
+  s.student_name,
+  SUM(sc.grade)
 FROM
   students_course sc
+  JOIN students s ON s.student_no = sc.student_no
 GROUP BY
-  student_no,
-  student_no;
+  s.student_no;
 
 
 -- 8 - Display Departments Which Average Salary For All Employees is less than 75000.
 SELECT
-  dept_no,
-  AVG(salary)
+  d.dept_no,
+  d.dept_name,
+  AVG(e.salary)
 FROM
-  employees
-WHERE
-  dept_no IS NOT NULL
+  departments d
+  JOIN employees e ON d.dept_no = e.dept_no
 GROUP BY
-  dept_no
+  d.dept_no
 HAVING
-  AVG(salary) > 75000;
+  AVG(e.salary) < 75000;
 
 
 -- 9 - Display Students Which Learn More Than 300 Hours.
 SELECT
-  student_no,
-  -- course_name,
-  -- course_duration
-  SUM(course_duration)
+  s.student_no,
+  s.student_name,
+  SUM(c.course_duration)
 FROM
-  students_course sc,
-  courses c
-WHERE
-  sc.course_no = c.course_no
+  students s
+  JOIN students_course sc ON s.student_no = sc.student_no
+  JOIN courses c ON c.course_no = sc.course_no
 GROUP BY
-  student_no;
+  s.student_no,
+  c.course_no
+HAVING
+  SUM(c.course_duration) > 300;
 
 
 -- 10 - Using "Union" & "Multiple Fuction" Display 2 Maximum **different** salary.
 -- TODO try using EXCEPT
-SELECT
-  MAX(salary) AS max_salary
-FROM
-  employees
+(
+  SELECT
+    MAX(salary)
+  FROM
+    employees
+)
 UNION
-SELECT
-  MAX(salary)
-FROM
-  employees
-WHERE
-  salary < (
-    SELECT
-      MAX(salary)
-    FROM
-      employees
-  )
-ORDER BY
-  max_salary DESC;
+(
+  SELECT DISTINCT
+    salary
+  FROM
+    employees
+  WHERE
+    salary IS NOT NULL
+  ORDER BY
+    salary DESC limit 1
+  OFFSET
+    1
+);
 
 
 -- 11 - Display Employee Full Name With Department Name Which is Working On It
@@ -164,15 +179,11 @@ WHERE
 
 
 -- 12 - Display Departments & Employees Data which have Employees or not
--- TODO review this
-SELECT DISTINCT
-  d.dept_name,
-  first_name
+SELECT
+  *
 FROM
   departments d
-  FULL OUTER JOIN employees e ON d.dept_no = e.dept_no
-ORDER BY
-  d.dept_name;
+  LEFT JOIN employees e ON e.dept_no = d.dept_no;
 
 
 -- 13 - Display Student Name and Course Name and Grade for him
@@ -204,13 +215,24 @@ WHERE
 
 
 -- 15 - Display Employee Data Which has history in department and salary
-SELECT DISTINCT
-  e.emp_no,
-  first_name,
-  dept_no
-FROM
-  employees e,
-  salaries s
-WHERE
-  e.emp_no = s.emp_no
-  AND e.dept_no IS NOT NULL;
+(
+  SELECT
+    first_name,
+    last_name
+  FROM
+    employees e,
+    salaries s
+  WHERE
+    s.emp_no = e.emp_no
+)
+INTERSECT
+(
+  SELECT
+    e.first_name,
+    e.last_name
+  FROM
+    employees e,
+    dept_emp de
+  WHERE
+    e.emp_no = de.emp_no
+);

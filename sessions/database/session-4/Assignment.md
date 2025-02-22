@@ -112,7 +112,7 @@ Design database for these tables and make constraint
 **_Tables:_**
 
 - `sales_office (sales_office_num, loc, manger_id)`
-- `employee (emp_id, name, sales office_num)`
+- `employee (emp_id, name, sales_office_num)`
 - `property (property_id, add, city, state, zip, sales_office_num)`
 - `owner (owner_id, name)`
 - `property_owner (property_id, owner_id, percent_owned)`

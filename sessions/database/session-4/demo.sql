@@ -201,7 +201,7 @@ WHERE
 
 -- to delete a specific record we use `DELETE FROM` and `WHERE`
 -- 
--- Before delete the statement below returns 32
+-- Before delete, the statement below returns 32
 SELECT
   COUNT(*)
 FROM
@@ -215,7 +215,7 @@ WHERE
   AND course_no = 6;
 
 
--- After delete the statement below returns 32
+-- After delete, the statement below returns 31
 SELECT
   COUNT(*)
 FROM
@@ -280,7 +280,7 @@ WHERE
 
 
 -- To increase the salary of employees in finance department by 20%
--- Since employees department doesn't have a dept_no column, we have to use a subquery to get the dept_no of the finance department
+-- Since employees department doesn't have a dept_name column, we have to use a subquery to get the dept_no of the finance department
 UPDATE employees
 SET
   salary = salary * 1.2
