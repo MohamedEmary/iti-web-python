@@ -1,0 +1,55 @@
+/*
+create [or replace] function function_name(param_list)
+   returns return_type
+   language plpgsql
+  as
+$$
+declare
+   -- variable declaration
+begin
+   -- logic
+end;
+$$;
+*/
+
+
+set search_path = hr;
+
+CREATE OR REPLACE FUNCTION calc_emp_tax(v_emp_id INT, v_tax_perc NUMERIC(14, 2))
+RETURNS NUMERIC(12, 4)
+language plpgsql 
+AS $$
+DECLARE
+    v_salary NUMERIC(12, 4);
+    v_tax_value NUMERIC(12, 4);
+BEGIN
+    -- Find the current salary
+    SELECT salary INTO v_salary
+    FROM employees
+    WHERE employee_id = v_emp_id;
+
+    -- Calc tax
+    v_tax_value := v_salary * v_tax_perc / 100;
+    
+    -- Return the tax value
+    RETURN v_tax_value;
+END; $$;
+
+
+-- call function from pl/pgsql
+DO $$ 
+DECLARE 
+    v_result NUMERIC(12, 4);
+BEGIN
+    -- Call function and storing result into valriable
+    v_result := calc_emp_tax(107, 10);
+    
+    -- Show output
+    RAISE NOTICE 'Tax value = %', v_result;
+    RAISE NOTICE 'Tax value = %', calc_emp_tax(107, 10);
+END $$;
+
+
+-- call function from sql
+-- SELECT employee_id, last_name, salary, calc_emp_tax(employee_id, 10) AS emp_tax
+-- FROM employees;

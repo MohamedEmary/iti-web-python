@@ -1,0 +1,46 @@
+set search_path = hr;
+/*
+create [or replace] procedure procedure_name(parameter_list)
+language plpgsql
+as $$
+declare
+-- variable declaration
+begin
+-- stored procedure body
+end; $$
+*/
+
+CREATE OR REPLACE PROCEDURE update_emp_salary(v_emp_id INT, v_bonus_perc NUMERIC(14, 2))
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    v_salary NUMERIC(14, 2);
+    v_salary_after NUMERIC(14, 2);
+BEGIN
+    -- Find the current salary
+    SELECT salary INTO v_salary
+    FROM employees
+    WHERE employee_id = v_emp_id;
+    
+    -- Calc the new salary
+    v_salary_after := v_salary + (v_salary * v_bonus_perc / 100);
+    
+    -- Update salary
+	UPDATE employees
+    SET salary = v_salary_after
+    WHERE employee_id = v_emp_id;
+END; $$;
+
+
+-- Calling stored procedure
+
+DO $$ 
+DECLARE 
+BEGIN
+
+	CALL update_emp_salary(107, 10);
+
+END $$;
+
+select * from employees where employee_id = 107;
+

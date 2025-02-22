@@ -1,0 +1,42 @@
+-- 1-
+CREATE USER yahia WITH PASSWORD '123';
+
+-- 2-
+SELECT ROLNAME FROM pg_roles;
+
+-- 3-
+GRANT USAGE ON SCHEMA hr TO yahia;
+----- Try to log to schema and \d
+
+-- 4-
+GRANT CREATE ON SCHEMA hr TO yahia;
+--- Try to Create table in the schema hr
+
+-- 5- 
+REVOKE CREATE ON SCHEMA hr FROM yahia
+
+
+-- 6- 
+GRANT SELECT, INSERT, UPDATE, DELETE ON hr.departments TO yahia;
+--- Try to select from table hr.departments
+
+-- 7-
+REVOKE SELECT, INSERT, UPDATE, DELETE ON hr.departments FROM yahia;
+
+
+-- 8-
+GRANT SELECT, UPDATE(department_name) ON hr.departments TO yahia;
+--- Try to update department_name on hr.departments only
+
+-- 9 
+REVOKE UPDATE ON hr.departments FROM yahia;
+
+
+-- 10
+SELECT * FROM information_schema.role_table_grants WHERE grantee = 'yahia';
+
+
+-- 11
+DROP ROLE yahia;
+
+

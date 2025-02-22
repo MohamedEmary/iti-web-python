@@ -1,0 +1,34 @@
+set search_path = hr;
+
+DO $$ 
+DECLARE
+    v_salary employees.salary%TYPE;
+    v_tax_perc INT;
+    v_tax_value NUMERIC(8,2);
+    v_net_salary employees.salary%TYPE;
+BEGIN
+    -- Find salary for employee ID 107
+    SELECT salary INTO v_salary
+    FROM employees
+    WHERE employee_id = 107;
+
+    -- Calc tax percentage
+    IF v_salary < 5000 THEN
+        v_tax_perc := 0;
+    ELSIF v_salary < 10000 THEN  
+        v_tax_perc := 10;
+    ELSIF v_salary < 15000 THEN
+        v_tax_perc := 15;
+    ELSE
+        v_tax_perc := 20;
+    END IF;
+
+    -- Calc tax value and net salary
+    v_tax_value := v_salary * v_tax_perc / 100;
+    v_net_salary := v_salary - v_tax_value;
+
+    -- Display results
+    RAISE NOTICE 'Salary = %, Tax %% = %, Tax Value = %, Net Salary = %', 
+        v_salary, v_tax_perc, v_tax_value, v_net_salary;
+
+END $$;

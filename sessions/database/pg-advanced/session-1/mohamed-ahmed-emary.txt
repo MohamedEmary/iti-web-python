@@ -1,0 +1,246 @@
+-- Day 1 Assignments 
+
+-- 1.	Display the last name concatenated with the job id, separated by a comma and space and name the column [Employee and Title]  as alias
+SELECT
+	LAST_NAME || ', ' || JOB_ID AS "Employee and Title"
+FROM
+	EMPLOYEES;
+
+
+
+
+-- 2.	Display the last name and salary for all employees whose salary is not in the range of $1500 and $7000.
+SELECT
+	LAST_NAME,
+	SALARY
+FROM
+	EMPLOYEES
+WHERE
+	SALARY NOT BETWEEN 1500 AND 7000;
+
+
+
+
+-- 3.	Display the last name, salary and commission for all employees who earn commissions, Sort data in descending order of salary and commissions.
+SELECT
+	LAST_NAME,
+	SALARY,
+	COMMISSION_PCT
+FROM
+	EMPLOYEES
+WHERE
+	COMMISSION_PCT IS NOT NULL
+ORDER BY
+	SALARY DESC,
+	COMMISSION_PCT DESC;
+
+
+
+
+
+-- 4.	Display the last name, job id and salary for all employees whose job id is SA_REP or PU_MAN and their salary is not equal to $9500, $9000 or $8000 
+SELECT
+	LAST_NAME,
+	JOB_ID,
+	SALARY
+FROM
+	EMPLOYEES
+WHERE
+	JOB_ID IN ('SA_REP', 'PU_MAN')
+	AND SALARY NOT IN (9500, 9000, 8000);
+
+
+
+
+
+
+-- 5.	Display all information about employees whose last name begin with letter 'S’ or letter ‘s’
+SELECT
+	*
+FROM
+	EMPLOYEES
+WHERE
+	LOWER(LAST_NAME) LIKE LOWER('s%');
+
+
+
+
+
+-- 6.	Display all employees whose first name contains letter before last ‘e’ or ‘E’
+SELECT
+	*
+FROM
+	EMPLOYEES
+WHERE
+	LOWER(FIRST_NAME) LIKE LOWER('%e_');
+
+
+
+
+
+
+-- # DDLs
+-- 1.	Create table with name of emps based on employees table ( with no data )- populate the emps table using a select statement from the employees table for the employees in department 20.
+-- •	Add column Gender to table emps. ( int ), default 0 ; add comment on column ( 0 stands for Male, 1 stands for Female )
+CREATE TABLE EMPS AS
+SELECT
+	*
+FROM
+	EMPLOYEES
+WHERE
+	1 = 2;
+
+-- 
+INSERT INTO
+	EMPS
+SELECT
+	*
+FROM
+	EMPLOYEES
+WHERE
+	DEPARTMENT_ID = 20;
+
+-- 
+ALTER TABLE EMPS
+ADD COLUMN GENDER INT DEFAULT 0;
+
+COMMENT ON COLUMN EMPS.GENDER IS '0 stands for Male, 1 stands for Female';
+
+-- 2.	Create the DEPTS  table based on the following table instance chart.    Create table with 2 columns
+-- COLUMN		NAME	ID	NAME 
+-- DATATYPE		Serial	Varchar
+-- LENGTH				100
+-- •	Populate the DEPTS table with data from departments table. Include only columns that you need. ( insert using sub query )
+CREATE TABLE DEPTS (ID SERIAL PRIMARY KEY, NAME VARCHAR(100));
+
+------------------------------
+INSERT INTO
+	DEPTS (ID, NAME)
+SELECT
+	DEPARTMENT_ID,
+	DEPARTMENT_NAME
+FROM
+	DEPARTMENTS;
+
+
+
+
+
+
+-- 2.	Create table employee_bkp based on the structure of the employees table(Structure with data).
+--       Include only the employee_id, last_name, email, salary and department_id columns
+CREATE TABLE EMPLOYEE_BKP AS
+SELECT
+	EMPLOYEE_ID,
+	LAST_NAME,
+	EMAIL,
+	SALARY,
+	DEPARTMENT_ID
+FROM
+	EMPLOYEES;
+
+
+
+
+
+
+-- # DMLs
+-- 1-	Insert new location with suitable data
+INSERT INTO
+	LOCATIONS (
+		LOCATION_ID,
+		STREET_ADDRESS,
+		POSTAL_CODE,
+		CITY,
+		STATE_PROVINCE,
+		COUNTRY_ID
+	)
+VALUES
+	(
+		2200,
+		'123 Alex Agami',
+		'3425',
+		'Alex',
+		'Alex',
+		'EG'
+	);
+
+
+
+
+
+
+
+-- 2-	Insert new department with suitable data for this location
+INSERT INTO
+	DEPARTMENTS (
+		DEPARTMENT_ID,
+		DEPARTMENT_NAME,
+		MANAGER_ID,
+		LOCATION_ID
+	)
+VALUES
+	(300, 'DB Admin', 300, 2000);
+
+
+
+
+
+
+
+
+-- 3-	Insert new employee with suitable data for this department
+INSERT INTO
+	EMPLOYEES (
+		EMPLOYEE_ID,
+		FIRST_NAME,
+		LAST_NAME,
+		EMAIL,
+		PHONE_NUMBER,
+		HIRE_DATE,
+		JOB_ID,
+		SALARY,
+		COMMISSION_PCT,
+		MANAGER_ID,
+		DEPARTMENT_ID
+	)
+VALUES
+	(
+		207,
+		'Mohamed',
+		'Emary',
+		'email',
+		'0123456789',
+		'2026-04-01',
+		'IT_PROG',
+		2000,
+		0.2,
+		300,
+		120
+	);
+
+
+
+
+
+
+-- 4-	Update your salary + 4000, update your job_id to have the same job_id for employee no. 107, update your phone_number to null
+UPDATE EMPLOYEES
+SET
+	SALARY = SALARY + 4000,
+	JOB_ID = (
+		SELECT
+			JOB_ID
+		FROM
+			EMPLOYEES
+		WHERE
+			EMPLOYEE_ID = 107
+	),
+	PHONE_NUMBER = NULL
+WHERE
+	EMPLOYEE_ID = 207;
+
+-- 5-	Be sure to Delete the created location
+DELETE FROM LOCATIONS
+WHERE
+	LOCATION_ID = 2200;

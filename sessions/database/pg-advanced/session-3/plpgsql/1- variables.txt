@@ -1,0 +1,55 @@
+-- PL/pgSQL [ not standard ] [ it is for postgresql ] 
+-- PL/pgSQL stands for [ Procedural Language/PostgreSQL Structured Query Language ]
+/*
+DO $$
+DECLARE
+
+BEGIN
+
+
+END $$;
+*/
+
+set search_path = hr;
+DO $$
+DECLARE
+    v_last_name VARCHAR;
+    v_salary NUMERIC(12, 4);
+    v_hire_date DATE;
+    v_department_id INT;
+    v_upper_name VARCHAR;
+    v_annual_salary NUMERIC(12, 4);
+    v_hired_years INT;
+    v_department_name VARCHAR;
+BEGIN
+    -- Retrieve employee details
+    SELECT last_name, salary, hire_date, department_id
+    INTO v_last_name, v_salary, v_hire_date, v_department_id
+    FROM employees
+    WHERE employee_id = 107;
+
+    -- Assign values
+    v_upper_name := UPPER(v_last_name);
+    v_annual_salary := v_salary * 12;
+    v_hired_years := EXTRACT('year' FROM AGE(NOW(), v_hire_date));
+
+    -- Find department name based on v_department_id variable
+    SELECT department_name
+    INTO v_department_name
+    FROM departments
+    WHERE department_id = v_department_id;
+
+    -- Update employee last name to uppercase
+    -- UPDATE employees
+    -- SET last_name = v_upper_name
+    -- WHERE employee_id = 107;
+
+    -- Print output
+    RAISE NOTICE 'Emp name = %, salary = %, hire date = %, dept id = %',
+        v_last_name, v_salary, v_hire_date, v_department_id;
+    RAISE NOTICE 'Upper name = %, Annual salary = %, hired years = %',
+        v_upper_name, v_annual_salary, v_hired_years;
+    RAISE NOTICE 'Department name = %', v_department_name;
+END $$;
+
+-- select * from employees where employee_id = 107;

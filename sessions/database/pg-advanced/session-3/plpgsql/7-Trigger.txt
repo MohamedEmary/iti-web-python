@@ -1,0 +1,39 @@
+/*
+	- First create a function that return Trigger
+	- Then, Create the trigger and execute this funtion
+*/
+
+/*
+Example.	The rows in the JOBS table store a minimum and maximum salary allowed for different JOB_ID values. 
+You are asked to write code to ensure that employees’ salaries fall in the range allowed for their job type
+*/
+
+set search_path = hr;
+CREATE OR REPLACE FUNCTION validate_salary()
+RETURNS TRIGGER 
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    v_min NUMERIC(8,2);
+    v_max NUMERIC(8,2);
+BEGIN
+    -- Find min_salary and max_salary for the given job_id
+    SELECT min_salary, max_salary
+    INTO v_min, v_max
+    FROM hr.jobs
+    WHERE job_id = NEW.job_id;
+
+    -- Validate salary range
+    IF NEW.salary NOT BETWEEN v_min AND v_max THEN
+        RAISE EXCEPTION 'Salary Range not acceptable';
+    END IF;
+
+    RETURN NEW;
+END; $$;
+
+-- Create the trigger
+CREATE OR REPLACE TRIGGER validate_salary_trigger
+BEFORE INSERT OR UPDATE OF salary, job_id
+ON employees
+FOR EACH ROW
+EXECUTE FUNCTION validate_salary();

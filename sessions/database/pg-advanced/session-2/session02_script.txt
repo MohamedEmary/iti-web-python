@@ -1,0 +1,347 @@
+set search_path = hr;
+
+
+------------ ### Aggregate Functions --------- Sum, Max, Min, Count, Avg ----------------
+select sum(salary), max(salary), min(salary), count(*)
+from employees;
+
+select sum(salary), max(salary), min(salary), count(*)
+from employees
+where department_id = 30;
+
+/* Donot use a column beside aggregate functions 
+select sum(salary), max(salary), min(salary), count(*), last_name
+from employees;
+*/
+
+-- example : show sum of salaries per each department 
+-- filter : remove null depts || show only sum(salary) >= 20000
+select department_id, sum(salary), count(*) -- 5
+from employees -- 1
+where department_id is not null  -- 2
+group by department_id   -- 3
+Having sum(salary) >= 20000 -- 4
+order by department_id asc;    -- 6
+
+-- avg salary
+select avg(coalesce(salary, 0)), sum(salary) / count(*)
+from employees;
+
+----------------------------  Join Between Tables --------------------
+
+/*
+1- inner join
+2- outer join 
+3- self join
+*/
+
+---- 1. inner join 
+-- [1st syntax : 2 tables ]
+select employee_id, last_name, salary, departments.department_id, department_name
+from employees, departments
+where employees.department_id = departments.department_id; --- join condition  
+ 
+
+-- [ 2nd syntax : 2 tables ] 
+select employee_id, last_name, salary, departments.department_id, department_name
+from employees inner join departments
+on employees.department_id = departments.department_id; --- join condition
+
+-- [1st syntax : 3 tables ]
+select employee_id, last_name, salary, departments.department_id, department_name, departments.location_id, city
+from employees, departments, locations
+where employees.department_id = departments.department_id --- join condition
+and departments.location_id = locations.location_id; -- join condition 
+
+-- [ 2nd syntax : 3 tables ] 
+select employee_id, last_name, salary, departments.department_id, department_name,
+    departments.location_id, city
+from employees inner join departments
+on employees.department_id = departments.department_id --- join condition
+inner join locations 
+on departments.location_id = locations.location_id; -- join condition
+
+
+
+
+--- 2- Outer Join [ left, right, full ] 
+select employee_id, last_name, salary, departments.department_id, department_name
+from employees Left outer join departments
+on employees.department_id = departments.department_id;
+
+
+
+---- 3. Self Join [ recursive ] { F.k and p.k in the same table }
+-- example : show employees data name, salary || beside his manager data name, salary 
+select emps.first_name as emp_name, emps.salary as emp_salary,
+         mgrs.first_name as mgr_name, mgrs.salary as mgr_salary
+from employees emps, employees mgrs
+where emps.manager_id = mgrs.employee_id; -- join condition
+/*
+    Emps        Mgrs
+    1               1
+    M(FK)        1
+*/
+
+-- self join with outer join
+select emps.last_name as emp_name, emps.salary as emp_salary,
+        mgrs.last_name as mgr_name, mgrs.salary as mgr_salary
+from employees emps left outer join employees mgrs
+on emps.manager_id = mgrs.employee_id;
+
+
+------------------------------ Sub Queries -----------------------------
+
+-- Single Rows Subquery   =     >     <     >=     <=    !=   
+-- example : get all employees data works in dept = ( same dept like employee no 115 )
+select *
+from employees
+where department_id = (select department_id from employees where employee_id = 115);
+
+
+-- example : get the employee data with the max salary within all employees
+select *
+from employees
+where salary = ( select max(salary) from employees );
+
+
+-- Multi Rows Subquery              In
+-- example : get all departments which have employees
+select *
+from departments
+where department_id  in (select department_id from employees );
+
+
+-- example : get all departments which have NO employees,  != ALL  [ Take care sub query doesn't return null ]
+select *
+from departments
+where department_id Not in ( select department_id from employees where department_id is not null);
+
+
+
+
+---------------------------------------------------
+-- Aggregate Functions |  Join |  SubQuery | 
+----------------------------------------------------
+-- Correlated Sub Query 
+-- Example : Find Employees data along with their average salary of their department
+--       Then Filter Employees to show only employees take salary > avg sal of their dept
+select employee_id, last_name, salary, department_id,
+                (select avg(salary) from employees inner_emps 
+                    where inner_emps.department_id = outer_emps.department_id)
+from employees outer_emps
+where salary > (select avg(salary) from employees inner_emps 
+                    where inner_emps.department_id = outer_emps.department_id);
+            
+
+
+-- Example : Show Departments data along with count employees in this department 
+--          filter departments to show only which have More than or Equal 5 Employees
+select outer_departments.*, (select count(*) from employees where department_id = outer_departments.department_id)
+from departments outer_departments
+where (select count(*) from employees
+                    where department_id =  outer_departments.department_id ) >= 5;
+
+
+---------------------------------------------------
+-- Limit, Offset
+----------------------------------------------------
+
+SELECT * FROM employees
+order by employee_id asc
+LIMIT 5;
+
+SELECT * FROM employees
+order by employee_id asc
+LIMIT 5
+OFFSET 2;
+
+-- Find the first 3 employees with the highest salary
+SELECT * FROM employees
+order by salary desc
+LIMIT 3;
+
+-- Find the 2nd highest employee with salary
+SELECT * FROM employees
+order by salary desc
+LIMIT 1 offset 1;
+
+-- rank() vs dense_rank()
+
+
+---------------------- sql functions ----------------------------------
+-- 1- single row functions    upper   |   2-   aggregate functions [multi rows functions ]  sum
+--+++++ 1- single row functions  ++++++++
+-- 1- Character Functions   :   upper lower, substr, length, position, trim, replace
+-- 2- Number Functions    ;   round, trunc, mod
+-- 3- Date Functions      :   now(), age(), 
+-- 4- Conversion Functions : to_char(), to_date()		14-5-2022
+-- 5- General Functions 	: Coalesce()
+--++++++++++++++++++++++++++++
+ -- 1- Character Functions   
+
+select employee_id, last_name, upper(last_name), lower(last_name),
+        length(last_name), substr(last_name, 2, 3),  substr(last_name, 2), 
+		position('n' in last_name)
+from employees;
+
+
+-- example : extract username and domain name from emails
+update employees
+set email = 'yahia.momtaz@msn.com'
+where employee_id = 105;
+
+update employees
+set email = 'ola.aly@gmail.com'
+where employee_id = 106;
+
+select * from employees order by employee_id asc;
+
+select employee_id, email,
+        substr(email, 1, position('@' in email) - 1) as user_name,
+        substr(email, position('@' in email) + 1) as domain_name
+from employees
+where employee_id in (105, 106);
+
+
+-- How to use ( replace function )
+update employees
+set last_name = 'yahia_momtaz'
+where employee_id = 105;
+
+select employee_id, last_name, replace(last_name, '_', ' ')
+from employees
+where employee_id = 105;
+
+
+update employees
+set last_name = replace(last_name, '_',' ')
+where employee_id = 105;
+
+
+-- How to use ( trim function )
+update employees
+set last_name = '   yahia momtaz   '
+where employee_id = 105;
+
+
+select *
+from employees
+where trim(last_name) = 'yahia momtaz';
+
+update employees
+set last_name = trim(last_name)
+where employee_id = 105;
+
+select first_name, trim('N' From first_name)
+from employees;
+
+
+--######### ------------------------------- 2 Number functions :
+---- ## [  round, trunc, Mod ]
+
+-- round, trunc functions
+/*round [ 2 ]
+15342.7873453454 => 15342.79
+15342.7823453454 => 15342.78
+round [ 0 ]
+15342.7823453454 => 15343
+--------------------
+trunc [ 2 ] 
+15342.7873453454 => 15342.78
+15342.7823453454 => 15342.78
+trunc [ 0 ] 
+15342.7823453454 => 15342
+*/
+
+alter table employees
+modify salary number(9, 3);
+
+select employee_id, last_name, salary,
+        round(salary, 2), round(salary, 0), round(salary),
+        trunc(salary, 2), trunc(salary, 0), trunc(salary)        
+from employees
+where employee_id in (105, 106);
+
+--- Mod Function, Modulos,  Remainder 
+select 6 / 2, Mod(6, 2);
+
+select 7 / 2, Mod(7, 2), Mod(419, 3), mod(6234237, 10);
+
+-- example : 140 seconds -   how many mintues - how many remaining seconds ?
+select trunc(140 / 60) as minutes, mod(140, 60) as remaning_seconds;
+
+-- example : 15 Months - how many years ? how many remaining months  ?
+select trunc(15 /12) as years, mod(15, 12) as remaining_months;
+
+
+------------------------------------ 
+--- Date Functions | Conversion functions 
+-------------------
+-- 1. sysdate function ( Date functions )
+select now();
+
+--- Control formatting dates _ Convert date to character using 
+-- 1. to_char( ) function : converstion function
+-- date
+select  to_char(now(), 'dd-mm-yyyy'),  
+        to_char(now(), 'd dd ddd Mon Month w ww yy yyyy'),
+        to_char(now(), 'dd ddth "of" Month, yyyy'),
+        to_char(now(), 'Dy Day');
+
+-- timing
+select to_char(now(), 'HH24:mi:ss'), to_char(now(), 'HH12:mi:ss am');
+
+-- apply on table employees
+select employee_id, last_name, hire_date,
+        to_char(hire_date, 'dd-FMMonth-yyyy') as hire_date_formatted
+from employees;
+
+
+--- example : get employee data hired on '17/06/2003'   = char in date style                  
+-- 2. to_date : conversion function | convert from char to date 
+select *
+from employees
+where hire_date = to_date('21/09/1989', 'dd-mm-yyyy'); -- '1989-09-21'
+
+
+-- example.  Fathy birthday   10-02-2001   |  Saturday  					
+select to_char( to_Date('10-02-2001', 'dd-mm-yyyy'), 'Day') ;
+
+
+
+-- example : find all employees hired on 09 1989
+select *
+from employees
+where to_char(hire_date, 'mm yyyy') = '09 1989';
+
+
+------------------------------------------------------------------------
+-- Date Functions 
+-- 1. now() Function
+-- 2. 3. Age(), Extract()  date functions
+
+SELECT employee_id, 
+       last_name, 
+       hire_date, 
+	   age(Now(), hire_date),
+	    Extract('Year' From now()),
+        Extract('Year' From AGE(NOW(), hire_date)) AS years_between, 
+       Extract('Month' From AGE(NOW(), hire_date)) AS remaining_months,
+	   Extract('Day' From AGE(NOW(), hire_date)) AS remaining_days
+FROM employees;
+
+-- 4.  date arithemtic INTERVAL keyword :	 5. DATE_TRUNC() date function
+SELECT NOW() + INTERVAL '5 days' AS inc_5days, 
+       NOW() + INTERVAL '6 months' AS inc_6months,
+	   NOW() + INTERVAL '2 years' AS inc_2years,
+	   Now() + INTERVAL '1 month - 1 day' AS inc_1month_decr_1day,
+	   DATE_TRUNC('month', NOW()) AS first_day_of_current_month,
+	   DATE_TRUNC('month', NOW()) + INTERVAL '1 month' AS first_day_of_next_month;
+
+----------------------------------------
+
+-- Format Numbers
+SELECT employee_id, last_name, salary, 
+       TO_CHAR(salary, '999,999,999.99') || ' EGP' AS formatted_salary
+FROM employees;

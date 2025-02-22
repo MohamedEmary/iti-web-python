@@ -1,0 +1,17 @@
+set search_path = hr;
+DO $$ 
+DECLARE
+    	v_emp_cursor CURSOR FOR 
+        SELECT * FROM employees 
+        WHERE department_id = 60 
+        ORDER BY employee_id ASC;
+    v_annual_salary NUMERIC(10, 2);
+BEGIN
+    -- Cursor FOR LOOP
+    FOR v_emp_record IN v_emp_cursor 
+    LOOP
+        v_annual_salary := v_emp_record.salary * 12;
+        RAISE NOTICE 'Emp ID = %, Last Name = %, Annual Salary = %', 
+                     v_emp_record.employee_id, v_emp_record.last_name, v_annual_salary;
+    END LOOP;
+END $$;

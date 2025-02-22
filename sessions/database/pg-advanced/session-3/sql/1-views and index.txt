@@ -1,0 +1,79 @@
+set search_path = hr;
+
+--- Views, index
+
+---------------------------------------------------------
+----- 2. DB Views : Stored select statement in the db as an object; for reusability and for security  
+Create or replace View emps_view
+as
+select employee_id, last_name, salary, hire_date, employees.department_id, department_name, email
+from employees, departments
+where employees.department_id = departments.department_id;
+
+
+select employee_id, last_name, department_name
+from emps_view
+where department_id = 60;
+
+----- +ve view 
+-- 1. Reusability [ Make Complex queries easy ]  
+-- 2. security 
+
+
+
+------ Views Types 
+-- 1. Simple View : from 1 table, No group by, No functions, Allow DMLs 
+-- 2. Complex view : from more than 1 table, may contain group by 
+--                          may contains functions || Don't allow DMLS
+
+
+
+-- invalid for complex views
+update emps_view
+set salary = salary + 1000;
+
+-- simple view
+create or replace  view employees_simple_vu
+        as select * from employees;
+
+update employees_simple_vu
+    set salary = salary + 1000
+    where department_id = 60;
+
+create or replace  view simple20_vu
+        as select * from employees
+                    where department_id = 20
+                    with check option;
+                   --  with read only
+
+update simple20_vu
+    set department_id = 60;
+
+drop view simple20_vu;
+
+-------------------------------------------------
+-- -------- ########### DB index ##### الفهرسة ################ ----------------
+-- To Speed up retrieve of data during select, join
+-- db index [ Object stored in the db ( on a column ) in a table
+/*
+    1. Hardware [ server, Memory, spu ... ]
+    2. Networking [ fiber .. bandwidth .. ] 
+    3. software [ application issues - Nested Loops .. Alogrithms .. 
+     change app scenario  ]  
+	4. Database [ dba ] [ db index ] 	
+*/
+select *
+from employees
+where department_id = 60;
+
+-- create index on column dept id ( manual index )
+create index my_dept_idx
+on employees(department_id);
+
+-- index Types
+/*
+1- Automatic index
+		- Primary Key ( Clustered Index )
+		- Unique Key
+2- Manual index ( Non Clustered index )
+*/

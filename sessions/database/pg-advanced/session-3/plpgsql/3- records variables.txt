@@ -1,0 +1,25 @@
+set search_path = hr;
+
+DO $$ 
+DECLARE
+ -- Record variable
+    v_emp_record employees%ROWTYPE; 
+    v_annual_salary NUMERIC(10, 2);
+    v_years INT;
+    v_emp_id INT := 107; 
+BEGIN 
+    -- Find employee details into record variable
+    SELECT * INTO v_emp_record
+    FROM employees
+    WHERE employee_id = v_emp_id;
+
+    -- Calc annual salary
+    v_annual_salary := v_emp_record.salary * 12;
+
+    -- Calc number of years worked
+    v_years := EXTRACT('year' FROM AGE(NOW(), v_emp_record.hire_date));
+
+    -- Show results
+    RAISE NOTICE 'Last name = %, Salary = %', v_emp_record.last_name, v_emp_record.salary;
+    RAISE NOTICE 'Annual salary = %, Hired years = %', v_annual_salary, v_years;
+END $$;
