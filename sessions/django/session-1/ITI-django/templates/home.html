@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Course List</h2>
+        <a href="{% url 'add_course' %}" class="btn btn-success">
+            <i class="fas fa-plus"></i> Add Course
+        </a>
+    </div>
+
+    <div class="table-container">
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Course Name</th>
+                    <th scope="col" class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ course.id }}</td>
+                    <td>{{ course.name }}</td>
+                    <td class="text-end">
+                        <a href="{% url 'update_course' course.id %}" class="btn btn-sm btn-primary">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a href="{% url 'delete_course' course.id %}" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i> Delete
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center py-4">
+                        <div class="text-muted">
+                            <i class="fas fa-book fa-2x mb-3"></i>
+                            <p>No courses available</p>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if courses.has_other_pages %}
+    <nav aria-label="Course pagination" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if courses.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ courses.previous_page_number }}">Previous</a>
+            </li>
+            {% endif %}
+
+            {% for num in courses.paginator.page_range %}
+                {% if courses.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+                {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if courses.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ courses.next_page_number }}">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

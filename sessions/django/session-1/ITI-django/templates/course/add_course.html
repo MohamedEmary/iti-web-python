@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Add Course</h2>
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Course Name">
+    <button type="submit">Add</button>
+</form>
+{% endblock %}

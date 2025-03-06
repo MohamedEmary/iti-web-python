@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Update Course</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label for="name">Course Name:</label>
+    <input type="text" id="name" name="name" value="{{ course.name }}" placeholder="Enter course name">
+    <button type="submit">Update</button>
+</form>
+{% endblock %}
