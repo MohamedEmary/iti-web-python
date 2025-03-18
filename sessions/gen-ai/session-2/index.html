@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quicksort Visualization</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Quicksort Visualization</h1>
+
+      <div class="controls">
+        <button id="new-array">Generate New Array</button>
+        <button id="start-sort">Visualize Quicksort</button>
+        <button id="pause-resume" disabled>Pause</button>
+        <div class="speed-control">
+          <label for="speed">Speed:</label>
+          <input
+            type="range"
+            id="speed"
+            min="10"
+            max="1000"
+            value="500"
+            step="10" />
+        </div>
+      </div>
+
+      <div class="array-container" id="array-container">
+        <!-- Array elements will be generated here -->
+      </div>
+
+      <div class="info-panel">
+        <div class="status">
+          <p id="current-step">
+            Generate an array and click "Visualize Quicksort" to begin
+          </p>
+        </div>
+        <div class="stats">
+          <p>Comparisons: <span id="comparisons">0</span></p>
+          <p>Swaps: <span id="swaps">0</span></p>
+        </div>
+        <div class="legend">
+          <div class="legend-item">
+            <div class="color-box unsorted"></div>
+            <span>Unsorted</span>
+          </div>
+          <div class="legend-item">
+            <div class="color-box pivot"></div>
+            <span>Pivot</span>
+          </div>
+          <div class="legend-item">
+            <div class="color-box comparing"></div>
+            <span>Comparing</span>
+          </div>
+          <div class="legend-item">
+            <div class="color-box sorted"></div>
+            <span>Sorted</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
