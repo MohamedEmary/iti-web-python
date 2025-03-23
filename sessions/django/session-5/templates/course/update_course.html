@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Update Course</h2>
+    <form method="POST" class="space-y-6">
+        {% csrf_token %}
+        <div class="space-y-2">
+            <label for="name" class="block text-sm font-medium text-gray-700">Course Name:</label>
+            <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                value="{{ course.name }}" 
+                placeholder="Enter course name"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border"
+            >
+        </div>
+        
+        <div class="space-y-2">
+            <label for="description" class="block text-sm font-medium text-gray-700">Course Description:</label>
+            <textarea 
+                id="description" 
+                name="description" 
+                placeholder="Enter course description"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border min-h-[100px]"
+            >{{ course.description }}</textarea>
+        </div>
+        
+        <div class="flex justify-between items-center pt-4">
+            <a href="{% url 'course_list' %}" class="text-white font-bold bg-red-600 hover:bg-red-800 py-2 px-4 rounded-lg transition duration-200">
+                Cancel
+            </a>
+            <button 
+                type="submit" 
+                class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
+            >
+                Update Course
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

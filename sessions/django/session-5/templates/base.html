@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ITIan</title>
+    <!-- Add Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body class="bg-gray-100">
+    <div class="top-container min-h-screen">
+      <header class="bg-white shadow">
+        <div class="container mx-auto px-4">
+          <h1 class="text-3xl font-bold text-gray-900">ITIan Management</h1>
+          <nav>
+            <ul class="flex space-x-4 items-center justify-center">
+              <li>
+                <a
+                  href="{% url 'trainee_list' %}"
+                  class="text-gray-700 hover:text-gray-900"
+                  >Trainees</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'course_list' %}"
+                  class="text-gray-700 hover:text-gray-900"
+                  >Courses</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <main class="container mx-auto my-5 px-4">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+
+    <footer class="bg-white shadow py-4 mt-auto">
+      <div class="container mx-auto text-center">
+        <p class="text-gray-600">
+          &copy; 2025 ITIan Management System. All Rights Reserved.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
