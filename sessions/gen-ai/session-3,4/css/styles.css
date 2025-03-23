@@ -1,0 +1,107 @@
+/* Custom styles beyond Tailwind */
+
+.markdown-body {
+  line-height: 1.6;
+}
+
+.markdown-body p {
+  margin-bottom: 1em;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  font-weight: 600;
+}
+
+.markdown-body h1 {
+  font-size: 1.5em;
+}
+
+.markdown-body h2 {
+  font-size: 1.25em;
+}
+
+.markdown-body h3 {
+  font-size: 1.125em;
+}
+
+.markdown-body pre {
+  background-color: #f6f8fa;
+  border-radius: 4px;
+  padding: 12px;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+.markdown-body code {
+  background-color: #f6f8fa;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 2em;
+  margin-bottom: 1em;
+}
+
+.markdown-body ul {
+  list-style-type: disc;
+}
+
+.markdown-body ol {
+  list-style-type: decimal;
+}
+
+.markdown-body a {
+  color: #3182ce;
+  text-decoration: underline;
+}
+
+/* Make text area have a fixed height */
+textarea {
+  min-height: 60px;
+  max-height: 200px;
+}
+
+/* Add these styles to your CSS file */
+
+.file-attachment {
+  transition: transform 0.2s;
+}
+
+.file-attachment:hover {
+  transform: scale(1.05);
+}
+
+.file-attachment img {
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.file-document {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  max-width: 200px;
+}
+
+.file-document:hover {
+  background-color: #e9ecef;
+}
+
+/* Mobile responsive tweaks */
+@media (max-width: 768px) {
+  .markdown-body pre {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./assets/icon.svg" type="image/x-icon" />
+    <title>Google LLM Chat Interface</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+  <body class="bg-gray-100 h-screen flex flex-col" x-data="app()">
+    <header class="bg-blue-600 text-white p-4 shadow-md">
+      <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-xl font-bold">Google LLM Chat</h1>
+        <button
+          x-show="!showSettings"
+          @click="showSettings = true"
+          class="bg-blue-700 hover:bg-blue-800 px-3 py-1 rounded">
+          <i class="fas fa-cog mr-1"></i> Settings
+        </button>
+        <button
+          x-show="showSettings"
+          @click="showSettings = false"
+          class="bg-blue-700 hover:bg-blue-800 px-3 py-1 rounded">
+          <i class="fas fa-times mr-1"></i> Close
+        </button>
+      </div>
+    </header>
+
+    <div class="flex-1 flex overflow-hidden">
+      <!-- Sidebar -->
+      <div class="w-64 bg-gray-800 text-white p-4 hidden md:block">
+        <div class="mb-4">
+          <button
+            @click="newConversation"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded flex items-center justify-center">
+            <i class="fas fa-plus mr-2"></i> New Chat
+          </button>
+        </div>
+
+        <div class="overflow-y-auto h-full">
+          <h2 class="text-lg font-semibold mb-2">Conversations</h2>
+          <ul>
+            <template x-for="convo in conversations" :key="convo.id">
+              <li
+                class="py-2 px-3 mb-1 rounded hover:bg-gray-700 cursor-pointer"
+                :class="{'bg-gray-700': currentConversation === convo.id}"
+                @click="loadConversation(convo.id)">
+                <div
+                  class="truncate"
+                  x-text="convo.title || 'New Conversation'"></div>
+                <div
+                  class="text-xs text-gray-400"
+                  x-text="formatDate(convo.created_at)"></div>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="flex-1 flex flex-col">
+        <!-- Settings Panel -->
+        <div
+          x-show="showSettings"
+          class="bg-white shadow-md p-6 m-4 rounded-lg">
+          <h2 class="text-lg font-bold mb-4">API Settings</h2>
+
+          <div class="mb-4">
+            <label class="block text-gray-700 mb-2" for="apiKey"
+              >Google API Key</label
+            >
+            <div class="flex">
+              <input
+                type="password"
+                id="apiKey"
+                x-model="apiKey"
+                class="flex-1 border rounded p-2 mr-2"
+                placeholder="Enter your Google API key" />
+              <button
+                @click="saveApiKey"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                Save Key
+              </button>
+            </div>
+            <p class="text-sm text-gray-600 mt-2">
+              Your API key is stored encrypted in your browser's local storage.
+            </p>
+          </div>
+        </div>
+
+        <!-- Chat Area -->
+        <div
+          x-show="!showSettings"
+          class="flex-1 flex flex-col overflow-hidden">
+          <div class="flex-1 overflow-y-auto p-4" id="message-container">
+            <!-- In your message display area, update the message template -->
+            <template x-for="(message, index) in messages" :key="index">
+              <div
+                :class="`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} mb-4`">
+                <div
+                  :class="`max-w-3/4 p-3 rounded-lg ${message.role === 'user' ? 'bg-blue-500 text-white rounded-br-none' : 'bg-gray-200 text-gray-800 rounded-bl-none'}`">
+                  <!-- Message content -->
+                  <div x-html="formatMessage(message.content)"></div>
+
+                  <!-- Files/Images display -->
+                  <div
+                    class="flex flex-wrap gap-2 mt-2"
+                    x-show="message.files && message.files.length > 0">
+                    <template
+                      x-for="(file, fileIndex) in message.files"
+                      :key="fileIndex">
+                      <div class="relative border rounded p-1 bg-white">
+                        <!-- Image files -->
+                        <a
+                          x-show="file.type && file.type.startsWith('image/')"
+                          :href="file.preview || file.path"
+                          target="_blank">
+                          <img
+                            :src="file.preview || file.path"
+                            class="h-20 w-20 object-cover rounded" />
+                        </a>
+
+                        <!-- Non-image files -->
+                        <a
+                          x-show="!file.type || !file.type.startsWith('image/')"
+                          :href="file.path"
+                          target="_blank"
+                          class="flex items-center p-2 text-sm text-blue-600 hover:underline">
+                          <i class="fas fa-file-alt mr-1 h-5 w-5"></i>
+                          <span x-text="file.name"></span>
+                        </a>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+              </div>
+            </template>
+            <div x-show="isLoading" class="flex justify-center p-4">
+              <i class="fas fa-spinner fa-spin text-blue-600 text-2xl"></i>
+            </div>
+          </div>
+
+          <!-- New Input Area with File Upload -->
+          <div class="flex items-center space-x-2 p-2 border-t">
+            <!-- File upload button -->
+            <label
+              for="file-upload"
+              class="cursor-pointer p-2 text-gray-500 hover:text-gray-700">
+              <i class="fa-solid fa-paperclip h-5 w-5"></i>
+              <input
+                id="file-upload"
+                type="file"
+                class="hidden"
+                multiple
+                @change="handleFileUpload"
+                accept="image/*" />
+            </label>
+
+            <!-- Text input -->
+            <input
+              type="text"
+              x-model="userInput"
+              @keydown.enter="sendMessage"
+              placeholder="Type your message..."
+              class="flex-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+            <!-- Send button -->
+            <button
+              @click="sendMessage"
+              class="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+              :disabled="isLoading || (!userInput.trim() && selectedFiles.length === 0)">
+              <i class="fas fa-check w-5 h-5"></i>
+            </button>
+          </div>
+
+          <!-- File preview area -->
+          <div
+            class="flex flex-wrap gap-2 p-2"
+            x-show="selectedFiles.length > 0">
+            <template x-for="(file, index) in selectedFiles" :key="index">
+              <div class="relative border rounded p-1">
+                <!-- Image preview -->
+                <img
+                  x-show="file.preview"
+                  :src="file.preview"
+                  class="h-16 w-16 object-cover" />
+                <!-- File name for non-images -->
+                <span
+                  x-show="!file.preview"
+                  x-text="file.name"
+                  class="text-xs"></span>
+                <!-- Remove button -->
+                <button
+                  @click="removeFile(index)"
+                  class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
+                  ×
+                </button>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
