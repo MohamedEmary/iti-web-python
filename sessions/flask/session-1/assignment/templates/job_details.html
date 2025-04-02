@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jobs</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        color: #333;
+        text-align: center;
+        padding: 50px;
+      }
+      h1 {
+        color: #4caf50;
+      }
+      table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      th {
+        background-color: #4caf50;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Job Details</h1>
+    <p>Welcome to the Job Details page.</p>
+    <table>
+      <tr>
+        <th>Job ID</th>
+        <th>Job Title</th>
+        <th>Company</th>
+        <th>Location</th>
+        <th>Description</th>
+        <th>Experience</th>
+        <th>Salary</th>
+        <th>Type</th>
+      </tr>
+      <tr>
+        <td>{{ job.id }}</td>
+        <td>{{ job.title }}</td>
+        <td>{{ job.company }}</td>
+        <td>{{ job.location }}</td>
+        <td>{{ job.description }}</td>
+        <td>{{ job.experience }}</td>
+        <td>{{ job.salary }}</td>
+        <td>{{ job.type }}</td>
+      </tr>
+    </table>
+  </body>
+</html>
