@@ -1,0 +1,22 @@
+services:
+  odoo:
+    image: odoo:17
+    container_name: odoo
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    volumes:
+      - ./config:/etc/odoo
+      - ./extra-addons:/mnt/extra-addons
+    restart: always
+    privileged: true  # Add privileged flag to allow more permissions
+
+  db:
+    image: postgres:latest
+    container_name: db
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+    restart: always
